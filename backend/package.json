@@ -1,0 +1,41 @@
+{
+  "name": "excel-to-postgres-backend",
+  "version": "1.0.0",
+  "description": "Fastify backend for Excel to PostgreSQL import",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint src --ext .ts"
+  },
+  "keywords": [
+    "fastify",
+    "postgresql",
+    "excel",
+    "import"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@fastify/cors": "^9.0.1",
+    "@fastify/multipart": "^8.1.0",
+    "dotenv": "^16.4.1",
+    "fastify": "^4.27.0",
+    "pg": "^8.13.1",
+    "pdfjs-dist": "^4.0.0",
+    "tesseract.js": "^5.0.0",
+    "uuid": "^10.0.0",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/pg": "^8.12.0",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "eslint": "^9.17.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
