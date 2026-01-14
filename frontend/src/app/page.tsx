@@ -7,10 +7,11 @@ import ImportResults from '@/components/ImportResults';
 import DatabaseConnectionModal from '@/components/DatabaseConnectionModal';
 import ExportTable from '@/components/ExportTable';
 import DocumentProcessor from '@/components/DocumentProcessor';
+import JsonImportFlow from '@/components/JsonImportFlow';
 import { uploadFile, previewFile, importData, ExcelData, ColumnInfo, ImportResult, ImportSummary, TableConfig } from '@/lib/api';
 
 type Step = 'upload' | 'preview' | 'importing' | 'results';
-type MainStep = 'import' | 'export' | 'documents';
+type MainStep = 'import' | 'export' | 'documents' | 'json';
 
 export default function Home() {
   const [mainStep, setMainStep] = useState<MainStep>('import');
@@ -155,6 +156,8 @@ export default function Home() {
               ? '📥 Upload Excel files, preview with automatic type detection, customize columns, and seamlessly import to PostgreSQL'
               : mainStep === 'export'
               ? '📤 Export PostgreSQL tables to Excel or JSONL format with custom column mappings'
+              : mainStep === 'json'
+              ? '📋 Upload JSON or JSONL files, preview with automatic type detection, and import to PostgreSQL'
               : '📚 Upload documents (PDF, Text, Images), chunk with multiple strategies, and store with rich metadata'}
           </p>
         </div>
@@ -177,6 +180,21 @@ export default function Home() {
             </span>
             {mainStep === 'import' && (
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-500 rounded-lg blur-xl opacity-30 -z-10 group-hover:opacity-50 transition-opacity"></div>
+            )}
+          </button>
+          <button
+            onClick={() => setMainStep('json')}
+            className={`group relative px-8 py-3 font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 ${
+              mainStep === 'json'
+                ? 'bg-gradient-to-r from-cyan-600 to-cyan-500 text-white shadow-lg shadow-cyan-500/30 scale-105'
+                : 'bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700/80'
+            }`}
+          >
+            <span className="relative z-10 flex items-center gap-2">
+              <span className="text-xl">📋</span> Import JSON
+            </span>
+            {mainStep === 'json' && (
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-cyan-500 rounded-lg blur-xl opacity-30 -z-10 group-hover:opacity-50 transition-opacity"></div>
             )}
           </button>
           <button
@@ -490,6 +508,11 @@ export default function Home() {
           {/* Document Processing Mode */}
           {mainStep === 'documents' && (
             <DocumentProcessor />
+          )}
+
+          {/* JSON Import Mode */}
+          {mainStep === 'json' && (
+            <JsonImportFlow customDatabaseUrl={customDatabaseUrl} />
           )}
         </div>
 

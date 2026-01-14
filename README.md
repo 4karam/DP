@@ -1,6 +1,6 @@
 # Excel ⇄ PostgreSQL + Document Processor 🚀
 
-A complete full-stack application for importing/exporting Excel files and processing documents (PDF, Text, Images) with intelligent text chunking and rich metadata enrichment.
+A complete full-stack application for importing/exporting Excel and JSON files, and processing documents (PDF, Text, Images) with intelligent text chunking and rich metadata enrichment.
 
 ## ✨ Features
 
@@ -10,6 +10,13 @@ A complete full-stack application for importing/exporting Excel files and proces
 - Preview with editable columns
 - Customize table names
 - Bulk import with transaction safety
+
+### 📊 JSON Import
+- Upload JSON files (.json) or JSONL (.jsonl)
+- Support for JSON arrays and JSON Lines format
+- Automatic type detection for all fields
+- Preview with editable columns
+- Direct import to PostgreSQL
 
 ### 📤 Excel Export
 - Export any PostgreSQL table to Excel
@@ -42,6 +49,7 @@ Frontend (Next.js - Port 3000)
     ↓
 Backend (Fastify - Port 3001)
     ├── Excel routes (upload, preview, import, export)
+    ├── JSON routes (upload, preview, import)
     ├── Document routes (upload, extract, chunk, save)
     └── Chunk management (query, statistics)
     ↓
@@ -103,7 +111,8 @@ http://localhost:3000
 
 ### Features Available
 - **📥 Import Excel** - Excel to PostgreSQL
-- **📤 Export Table** - PostgreSQL to Excel
+- **📋 Import JSON** - JSON/JSONL to PostgreSQL
+- **📤 Export Table** - PostgreSQL to Excel/JSONL
 - **📚 Process Documents** - PDF/Text/Images with chunking
 
 ## 📚 Documentation
@@ -210,6 +219,13 @@ POST   /api/export/process      → Generate file
 GET    /api/export/download/:id → Download
 ```
 
+### JSON Import
+```
+POST   /api/json/upload         → Upload JSON
+POST   /api/json/preview        → Preview data
+POST   /api/json/import         → Import to DB
+```
+
 ### Document Processing
 ```
 POST   /api/documents/upload    → Upload file
@@ -303,6 +319,6 @@ MIT
 
 ---
 
-**Last Updated**: January 15, 2024
+**Last Updated**: January 15, 2026
 **Maintainer**: Excel to PostgreSQL Team
 **Status**: ✅ Production Ready

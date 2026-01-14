@@ -8,6 +8,9 @@ import { previewHandler } from './routes/preview';
 import { importHandler } from './routes/import';
 import { healthHandler } from './routes/health';
 import { testConnectionHandler } from './routes/testConnection';
+import { jsonUploadHandler } from './routes/jsonUpload';
+import { jsonPreviewHandler } from './routes/jsonPreview';
+import { jsonImportHandler } from './routes/jsonImport';
 import {
   getTablesHandler,
   getSchemaHandler,
@@ -106,6 +109,16 @@ function registerRoutes() {
 
   // Import to PostgreSQL
   fastify.post('/api/import', importHandler);
+
+  // ========== JSON IMPORT ENDPOINTS ==========
+  // Upload JSON file
+  fastify.post('/api/json/upload', jsonUploadHandler);
+
+  // Preview JSON data
+  fastify.post('/api/json/preview', jsonPreviewHandler);
+
+  // Import JSON to PostgreSQL
+  fastify.post('/api/json/import', jsonImportHandler);
 
   // ========== EXPORT ENDPOINTS ==========
   // Step 1: Get all tables

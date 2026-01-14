@@ -7,7 +7,12 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "lint": "eslint src --ext .ts"
+    "lint": "eslint src --ext .ts",
+    "test": "jest",
+    "test:unit": "jest --testPathIgnorePatterns integration",
+    "test:integration": "jest tests/integration",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [
     "fastify",
@@ -22,19 +27,25 @@
     "@fastify/multipart": "^8.1.0",
     "dotenv": "^16.4.1",
     "fastify": "^4.27.0",
-    "pg": "^8.13.1",
     "pdfjs-dist": "^4.0.0",
+    "pg": "^8.13.1",
     "tesseract.js": "^5.0.0",
     "uuid": "^10.0.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.10.2",
     "@types/pg": "^8.12.0",
+    "@types/supertest": "^6.0.3",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
     "eslint": "^9.17.0",
+    "form-data": "^4.0.0",
+    "jest": "^30.2.0",
+    "supertest": "^7.2.2",
+    "ts-jest": "^29.4.6",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }

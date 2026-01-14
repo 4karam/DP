@@ -123,6 +123,79 @@ export async function checkHealth(): Promise<boolean> {
   }
 }
 
+// ========== JSON IMPORT API FUNCTIONS ==========
+
+export interface JsonPreview {
+  columns: ColumnInfo[];
+  preview: any[][];
+  rowCount: number;
+  format: 'json' | 'jsonl';
+}
+
+export async function uploadJsonFile(file: File): Promise<{ fileId: string; filename: string }> {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch(`${API_URL}/api/json/upload`, {
+    method: 'POST',
+    body: formData,
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Failed to upload JSON file');
+  }
+
+  const data = await response.json();
+  return { fileId: data.fileId, filename: data.filename };
+}
+
+export async function previewJsonFile(fileId: string): Promise<JsonPreview> {
+  const response = await fetch(`${API_URL}/api/json/preview`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ fileId }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Failed to preview JSON file');
+  }
+
+  const data = await response.json();
+  return {
+    columns: data.columns,
+    preview: data.preview,
+    rowCount: data.rowCount,
+    format: data.format,
+  };
+}
+
+export async function importJsonData(
+  fileId: string,
+  tableName: string,
+  columns: ColumnInfo[],
+  databaseUrl?: string
+): Promise<ImportResult> {
+  const response = await fetch(`${API_URL}/api/json/import`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ fileId, tableName, columns, databaseUrl }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || 'Failed to import JSON data');
+  }
+
+  const data = await response.json();
+  return data.result;
+}
+
 // ========== EXPORT API FUNCTIONS ==========
 
 export interface TableName {
